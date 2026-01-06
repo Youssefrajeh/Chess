@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+
+      <main class="game-container">
+        <!-- Game Info Panel - Left Side -->
+        <aside class="game-info left-panel">
+          <div class="info-card">
+            <h2>Captured by White</h2>
+            <div id="captured-white" class="captured-pieces"></div>
+          </div>
+          <div class="info-card">
+            <h2>Move History</h2>
+            <div id="move-history" class="move-history"></div>
+          </div>
+        </aside>
+
+        <!-- Chess Board -->
+        <section class="board-container">
+          <div class="turn-indicator-container">
+            <div id="turn-indicator" class="turn-indicator">
+              <span class="turn-text">White's Turn</span>
+            </div>
+          </div>
+
+          <div id="chess-board" class="chess-board"></div>
+
+          <div class="game-status-container">
+            <div id="game-status" class="game-status"></div>
+          </div>
+
+          <div class="controls">
+            <button id="undo-btn" class="control-btn" disabled>
+              <span>↶</span> Undo Move
+            </button>
+        <h2>Choose Promotion Piece</h2>
+        <div id="promotion-choices" class="promotion-choices"></div>
+      </div>
+    </div>
+
+    <script src="chess.js"></script>
+    <script src="ui.js"></script>
+  </body>
+</html>
