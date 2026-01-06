@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="analysis.css">
+    <link rel="stylesheet" href="controls.css">
 </head>
 <body>
     <div class="container">
@@ -28,6 +29,17 @@
                 <div class="info-card">
                     <h2>Move History</h2>
                     <div id="move-history" class="move-history"></div>
+                </div>
+                <div class="info-card controls-card">
+                    <h2>Game Controls</h2>
+                    <div class="side-panel-controls">
+                        <button id="undo-btn-side" class="control-btn" disabled>
+                            <span>↶</span> Undo Move
+                        </button>
+                        <button id="new-game-btn-side" class="control-btn primary">
+                            <span>⟳</span> New Game
+                        </button>
+                    </div>
                 </div>
             </aside>
 

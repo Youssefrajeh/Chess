@@ -1,0 +1,23 @@
+/* Side panel controls for desktop */
+.side-panel-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.side-panel-controls .control-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.controls-card {
+  display: block;
+}
+
+/* Hide on mobile since we have the bottom controls */
+@media (max-width: 768px) {
+  .controls-card {
+    display: none !important;
+  }
+}

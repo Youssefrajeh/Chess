@@ -424,29 +424,25 @@ function updateMoveCount() {
 
 function updateUndoButton() {
     const undoBtn = document.getElementById('undo-btn');
-    undoBtn.disabled = game.moveHistory.length === 0;
+    const undoBtnSide = document.getElementById('undo-btn-side');
+    const isDisabled = game.moveHistory.length === 0;
+    
+    if (undoBtn) undoBtn.disabled = isDisabled;
+    if (undoBtnSide) undoBtnSide.disabled = isDisabled;
 }
 
 // Event Listeners
 function attachEventListeners() {
-    document.getElementById('new-game-btn').addEventListener('click', () => {
-        if (confirm('Start a new game?')) {
-            game.reset();
-            clearSelection();
-            renderBoard();
-            updateUI();
-            setTimeout(() => analyzePosition(), 500);
-        }
-    });
+    // Bottom controls (always present)
+    document.getElementById('new-game-btn').addEventListener('click', handleNewGame);
+    document.getElementById('undo-btn').addEventListener('click', handleUndo);
 
-    document.getElementById('undo-btn').addEventListener('click', () => {
-        if (game.undoMove()) {
-            clearSelection();
-            renderBoard();
-            updateUI();
-            setTimeout(() => analyzePosition(), 300);
-        }
-    });
+    // Side panel controls (desktop only)
+    const newGameBtnSide = document.getElementById('new-game-btn-side');
+    const undoBtnSide = document.getElementById('undo-btn-side');
+    
+    if (newGameBtnSide) newGameBtnSide.addEventListener('click', handleNewGame);
+    if (undoBtnSide) undoBtnSide.addEventListener('click', handleUndo);
 
     // Hint button
     document.getElementById('hint-btn').addEventListener('click', () => {
@@ -467,6 +463,25 @@ function attachEventListeners() {
             attemptMove(fromRow, fromCol, toRow, toCol);
         }
     });
+}
+
+function handleNewGame() {
+    if (confirm('Start a new game?')) {
+        game.reset();
+        clearSelection();
+        renderBoard();
+        updateUI();
+        setTimeout(() => analyzePosition(), 500);
+    }
+}
+
+function handleUndo() {
+    if (game.undoMove()) {
+        clearSelection();
+        renderBoard();
+        updateUI();
+        setTimeout(() => analyzePosition(), 300);
+    }
 }
 
 // Helper Functions

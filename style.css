@@ -657,7 +657,7 @@ header {
 /* Mobile Tablet */
 @media (max-width: 768px) {
   :root {
-    --board-size: min(calc(100vw - 20px), calc(100vh - 200px));
+    --board-size: min(calc(100vw - 20px), calc(100vh - 240px));
   }
 
   body {
@@ -677,20 +677,20 @@ header {
   }
 
   .game-container {
-    gap: 8px;
+    gap: 10px;
     max-height: calc(100vh - 60px);
   }
 
   .board-container {
-    gap: 8px;
+    gap: 10px;
   }
 
   .turn-indicator {
-    padding: 6px 16px;
+    padding: 8px 18px;
   }
 
   .turn-text {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   /* Hide side panels on mobile for cleaner experience */
@@ -699,34 +699,36 @@ header {
   }
 
   .game-status-container {
-    min-height: 30px;
+    min-height: 35px;
   }
 
   .game-status {
-    font-size: 0.95rem;
-    padding: 6px 14px;
+    font-size: 1rem;
+    padding: 8px 16px;
   }
 
   .controls {
     width: 100%;
-    gap: 8px;
+    gap: 10px;
+    margin-top: 10px;
   }
 
   .control-btn {
     flex: 1;
-    padding: 10px 14px;
-    font-size: 0.85rem;
+    padding: 14px 18px;
+    font-size: 1rem;
+    font-weight: 600;
   }
 
   .control-btn span {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
 }
 
 /* Mobile Portrait - Maximize board */
 @media (max-width: 480px) {
   :root {
-    --board-size: min(calc(100vw - 10px), calc(100vh - 160px));
+    --board-size: min(calc(100vw - 10px), calc(100vh - 200px));
   }
 
   body {
@@ -752,21 +754,21 @@ header {
   }
 
   .game-container {
-    gap: 5px;
+    gap: 8px;
     padding: 0;
     max-height: calc(100vh - 50px);
   }
 
   .board-container {
-    gap: 5px;
+    gap: 8px;
   }
 
   .turn-indicator {
-    padding: 5px 12px;
+    padding: 7px 14px;
   }
 
   .turn-text {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .chess-board {
@@ -774,29 +776,31 @@ header {
   }
 
   .game-status-container {
-    min-height: 25px;
+    min-height: 30px;
   }
 
   .game-status {
-    font-size: 0.85rem;
-    padding: 5px 12px;
+    font-size: 0.9rem;
+    padding: 6px 14px;
   }
 
   .game-status.checkmate {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .controls {
-    gap: 6px;
+    gap: 8px;
+    margin-top: 8px;
   }
 
   .control-btn {
-    padding: 8px 10px;
-    font-size: 0.75rem;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
   }
 
   .control-btn span {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   /* Promotion modal adjustments */
