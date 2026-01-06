@@ -648,6 +648,12 @@ header {
     flex: 1;
     min-width: 200px;
   }
+  
+  /* Ensure analysis card is visible */
+  .analysis-card {
+    flex: 1 1 45%;
+    min-width: 280px;
+  }
 
   header {
     padding: 8px 0;
@@ -693,9 +699,21 @@ header {
     font-size: 1rem;
   }
 
-  /* Hide side panels on mobile for cleaner experience */
+  /* Show only analysis on mobile, hide other panels */
   .game-info {
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* Hide specific info cards except analysis */
+  .game-info .info-card:not(.analysis-card) {
     display: none;
+  }
+
+  .analysis-card {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
   }
 
   .game-status-container {
@@ -921,4 +939,3 @@ header {
     margin-bottom: 8px;
   }
 }
-
