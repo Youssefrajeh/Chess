@@ -1,0 +1,30 @@
+/* Mobile positioning for toggle switch */
+@media (max-width: 768px) {
+  /* Move toggle to top of analysis container on mobile */
+  .analysis-container {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .toggle-container {
+    order: -1;
+    margin-bottom: 15px;
+  }
+  
+  .evaluation-display {
+    order: 2;
+  }
+  
+  .piece-style-selector {
+    order: 1;
+    margin-bottom: 12px;
+  }
+  
+  .best-move-display {
+    order: 3;
+  }
+  
+  #analysis-status {
+    order: 4;
+  }
+}

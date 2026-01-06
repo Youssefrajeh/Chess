@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updateUI();
     attachEventListeners();
     
+    // Initialize piece style selector
+    const pieceStyleSelector = document.getElementById('piece-style');
+    if (pieceStyleSelector) {
+        pieceStyleSelector.value = currentPieceStyle;
+    }
+    
     // Don't auto-start analysis - let user enable it manually
     chessEngine.updateStatus('AI Analysis OFF');
 });
@@ -470,6 +476,16 @@ function attachEventListeners() {
             });
         }
     });
+
+    // Piece style selector
+    const pieceStyleSelector = document.getElementById('piece-style');
+    if (pieceStyleSelector) {
+        pieceStyleSelector.addEventListener('change', (e) => {
+            if (changePieceStyle(e.target.value)) {
+                renderBoard();
+            }
+        });
+    }
 
     // Apply hint button (dynamic - attached when hint is shown)
     document.addEventListener('click', (e) => {

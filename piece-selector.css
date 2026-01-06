@@ -1,0 +1,46 @@
+/* ===========================
+   Piece Style Selector
+   =========================== */
+.piece-style-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.piece-style-selector label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.piece-style-dropdown {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.piece-style-dropdown:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #4facfe;
+}
+
+.piece-style-dropdown:focus {
+  outline: none;
+  border-color: #4facfe;
+  box-shadow: 0 0 8px rgba(79, 172, 254, 0.3);
+}
+
+.piece-style-dropdown option {
+  background: #1a1a2e;
+  color: #fff;
+}

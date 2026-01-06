@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="analysis.css" />
     <link rel="stylesheet" href="controls.css" />
     <link rel="stylesheet" href="toggle.css" />
+    <link rel="stylesheet" href="piece-selector.css" />
+    <link rel="stylesheet" href="mobile-toggle.css" />
   </head>
   <body>
     <div class="container">
@@ -99,6 +101,14 @@
                 </div>
                 <span id="eval-score" class="eval-score">0.0</span>
               </div>
+              <div class="piece-style-selector">
+                <label for="piece-style">Piece Style:</label>
+                <select id="piece-style" class="piece-style-dropdown">
+                  <option value="classic">Classic</option>
+                  <option value="modern">Modern</option>
+                  <option value="bold">Bold</option>
+                </select>
+              </div>
               <div class="toggle-container">
                 <span class="toggle-label">AI Analysis</span>
                 <label class="toggle-switch">
@@ -124,6 +134,7 @@
       </div>
     </div>
 
+    <script src="pieces.js"></script>
     <script src="chess.js"></script>
     <script src="simple-ai.js"></script>
     <script src="engine.js"></script>

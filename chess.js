@@ -1,26 +1,7 @@
 // ===========================
 // Chess Game Logic
 // ===========================
-
-// Unicode chess pieces
-const PIECES = {
-    white: {
-        king: '♔',
-        queen: '♕',
-        rook: '♖',
-        bishop: '♗',
-        knight: '♘',
-        pawn: '♙'
-    },
-    black: {
-        king: '♚',
-        queen: '♛',
-        rook: '♜',
-        bishop: '♝',
-        knight: '♞',
-        pawn: '♟'
-    }
-};
+// Note: PIECES constant is loaded from pieces.js
 
 class ChessGame {
     constructor() {
