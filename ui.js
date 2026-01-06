@@ -9,9 +9,15 @@ let validMoves = [];
 // Initialize game on page load
 document.addEventListener('DOMContentLoaded', () => {
     game = new ChessGame();
+    chessEngine = new ChessEngine();
     renderBoard();
     updateUI();
     attachEventListeners();
+    
+    // Initial analysis
+    setTimeout(() => {
+        analyzePosition();
+    }, 1000);
 });
 
 function renderBoard() {
@@ -128,6 +134,9 @@ function attemptMove(fromRow, fromCol, toRow, toCol) {
         clearSelection();
         renderBoard();
         updateUI();
+        
+        // Trigger analysis after move
+        setTimeout(() => analyzePosition(), 300);
     }
 }
 
@@ -327,6 +336,7 @@ function attachEventListeners() {
             clearSelection();
             renderBoard();
             updateUI();
+            setTimeout(() => analyzePosition(), 500);
         }
     });
 
@@ -335,6 +345,27 @@ function attachEventListeners() {
             clearSelection();
             renderBoard();
             updateUI();
+            setTimeout(() => analyzePosition(), 300);
+        }
+    });
+
+    // Hint button
+    document.getElementById('hint-btn').addEventListener('click', () => {
+        if (chessEngine && !chessEngine.isAnalyzing) {
+            analyzePosition();
+        }
+    });
+
+    // Apply hint button (dynamic - attached when hint is shown)
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'apply-hint-btn') {
+            const display = document.getElementById('best-move-display');
+            const fromRow = parseInt(display.dataset.fromRow);
+            const fromCol = parseInt(display.dataset.fromCol);
+            const toRow = parseInt(display.dataset.toRow);
+            const toCol = parseInt(display.dataset.toCol);
+            
+            attemptMove(fromRow, fromCol, toRow, toCol);
         }
     });
 }
@@ -352,3 +383,16 @@ document.addEventListener('dragover', (e) => {
 document.addEventListener('drop', (e) => {
     e.preventDefault();
 });
+
+// Analysis Functions
+function analyzePosition() {
+    if (!chessEngine || !chessEngine.isReady) return;
+    
+    // Clear best move highlights
+    document.querySelectorAll('.best-move-highlight').forEach(sq => {
+        sq.classList.remove('best-move-highlight');
+    });
+    
+    const fen = chessEngine.getBoardFEN(game);
+    chessEngine.analyzePosition(fen);
+}
