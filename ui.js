@@ -9,6 +9,7 @@ let validMoves = [];
 // Initialize game on page load
 document.addEventListener('DOMContentLoaded', () => {
     game = new ChessGame();
+    simpleAI = new SimpleChessAI();
     chessEngine = new ChessEngine();
     renderBoard();
     updateUI();
@@ -491,6 +492,5 @@ function analyzePosition() {
         sq.classList.remove('best-move-highlight');
     });
     
-    const fen = chessEngine.getBoardFEN(game);
-    chessEngine.analyzePosition(fen);
+    chessEngine.analyzePosition(game);
 }
