@@ -16,10 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateUI();
     attachEventListeners();
     
-    // Initial analysis
-    setTimeout(() => {
-        analyzePosition();
-    }, 1000);
+    // Don't auto-start analysis - let user enable it manually
+    chessEngine.updateStatus('AI Analysis disabled. Click "Show Hint" to enable.');
 });
 
 function renderBoard() {
@@ -452,21 +450,25 @@ function attachEventListeners() {
     
     hintBtn.addEventListener('click', () => {
         if (hintVisible) {
-            // Hide hint
+            // Turn OFF AI Analysis
             const display = document.getElementById('best-move-display');
             display.innerHTML = '';
-            hintBtn.innerHTML = '<span>💡</span> Show Hint';
+            hintBtn.innerHTML = '<span>💡</span> AI Analysis: OFF';
             hintVisible = false;
             
             // Clear best move highlights
             document.querySelectorAll('.best-move-highlight').forEach(sq => {
                 sq.classList.remove('best-move-highlight');
             });
+            
+            // Update status
+            chessEngine.updateStatus('AI Analysis disabled');
         } else {
-            // Show hint
+            // Turn ON AI Analysis
             if (chessEngine && !chessEngine.isAnalyzing) {
-                hintBtn.innerHTML = '<span>✖</span> Hide Hint';
+                hintBtn.innerHTML = '<span>🧠</span> AI Analysis: ON';
                 hintVisible = true;
+                chessEngine.updateStatus('AI Analysis enabled');
                 analyzePosition();
             }
         }
@@ -524,7 +526,7 @@ function resetHintButton() {
     const display = document.getElementById('best-move-display');
     
     if (hintBtn) {
-        hintBtn.innerHTML = '<span>💡</span> Show Hint';
+        hintBtn.innerHTML = '<span>💡</span> AI Analysis: OFF';
         hintVisible = false;
     }
     
@@ -536,6 +538,11 @@ function resetHintButton() {
     document.querySelectorAll('.best-move-highlight').forEach(sq => {
         sq.classList.remove('best-move-highlight');
     });
+    
+    // Update status
+    if (chessEngine) {
+        chessEngine.updateStatus('AI Analysis disabled. Click to enable.');
+    }
 }
 
 // Prevent default drag behavior on pieces
