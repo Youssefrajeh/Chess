@@ -25,39 +25,39 @@ const PIECE_SETS = {
     modern: {
         name: 'Modern',
         white: {
-            king: '♚',
-            queen: '♛',
-            rook: '♜',
-            bishop: '♝',
-            knight: '♞',
-            pawn: '♟'
+            king: '🗡️',
+            queen: '👑',
+            rook: '🏛️',
+            bishop: '✨',
+            knight: '🦄',
+            pawn: '⬜'
         },
         black: {
+            king: '⚔️',
+            queen: '💎',
+            rook: '🏰',
+            bishop: '🌟',
+            knight: '🐴',
+            pawn: '⬛'
+        }
+    },
+    bold: {
+        name: 'Bold',
+        white: {
             king: '♔',
             queen: '♕',
             rook: '♖',
             bishop: '♗',
             knight: '♘',
             pawn: '♙'
-        }
-    },
-    bold: {
-        name: 'Bold',
-        white: {
-            king: '🤴',
-            queen: '👸',
-            rook: '🏰',
-            bishop: '⛪',
-            knight: '🐴',
-            pawn: '⚪'
         },
         black: {
-            king: '🤴🏿',
-            queen: '👸🏿',
-            rook: '🏰',
-            bishop: '⛪',
-            knight: '🐴',
-            pawn: '⚫'
+            king: '♚',
+            queen: '♛',
+            rook: '♜',
+            bishop: '♝',
+            knight: '♞',
+            pawn: '♟'
         }
     }
 };
