@@ -1,48 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Beautiful 2-player chess game with complete rules and AI analysis">
+    <title>Chess Game - 2 Players</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.2/stockfish.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="game-title">♔ Chess Game ♚</h1>
+            <p class="game-subtitle">Two Player Battle with AI Analysis</p>
+        </header>
 
-      <main class="game-container">
-        <!-- Game Info Panel - Left Side -->
-        <aside class="game-info left-panel">
-          <div class="info-card">
-            <h2>Captured by White</h2>
-            <div id="captured-white" class="captured-pieces"></div>
-          </div>
-          <div class="info-card">
-            <h2>Move History</h2>
-            <div id="move-history" class="move-history"></div>
-          </div>
-        </aside>
+        <main class="game-container">
+            <!-- Game Info Panel - Left Side -->
+            <aside class="game-info left-panel">
+                <div class="info-card">
+                    <h2>Captured by White</h2>
+                    <div id="captured-white" class="captured-pieces"></div>
+                </div>
+                <div class="info-card">
+                    <h2>Move History</h2>
+                    <div id="move-history" class="move-history"></div>
+                </div>
+            </aside>
 
-        <!-- Chess Board -->
-        <section class="board-container">
-          <div class="turn-indicator-container">
-            <div id="turn-indicator" class="turn-indicator">
-              <span class="turn-text">White's Turn</span>
-            </div>
-          </div>
+            <!-- Chess Board -->
+            <section class="board-container">
+                <div class="turn-indicator-container">
+                    <div id="turn-indicator" class="turn-indicator">
+                        <span class="turn-text">White's Turn</span>
+                    </div>
+                </div>
+                
+                <div id="chess-board" class="chess-board"></div>
+                
+                <div class="game-status-container">
+                    <div id="game-status" class="game-status"></div>
+                </div>
 
-          <div id="chess-board" class="chess-board"></div>
+                <div class="controls">
+                    <button id="undo-btn" class="control-btn" disabled>
+                        <span>↶</span> Undo Move
+                    </button>
+                    <button id="new-game-btn" class="control-btn primary">
+                        <span>⟳</span> New Game
+                    </button>
+                </div>
+            </section>
 
-          <div class="game-status-container">
-            <div id="game-status" class="game-status"></div>
-          </div>
+            <!-- Game Info Panel - Right Side -->
+            <aside class="game-info right-panel">
+                <div class="info-card">
+                    <h2>Captured by Black</h2>
+                    <div id="captured-black" class="captured-pieces"></div>
+                </div>
+                <div class="info-card">
+                    <h2>Game Stats</h2>
+                    <div class="game-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Move #</span>
+                            <span id="move-count" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card analysis-card">
+                    <h2>🧠 AI Analysis</h2>
+                    <div class="analysis-container">
+                        <div class="evaluation-display">
+                            <span class="eval-label">Position</span>
+                            <div class="eval-bar-container">
+                                <div id="eval-bar" class="eval-bar"></div>
+                            </div>
+                            <span id="eval-score" class="eval-score">0.0</span>
+                        </div>
+                        <button id="hint-btn" class="control-btn hint-btn">
+                            <span>💡</span> Show Hint
+                        </button>
+                        <div id="best-move-display" class="best-move-display"></div>
+                        <div id="analysis-status" class="analysis-status">Engine ready</div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
 
-          <div class="controls">
-            <button id="undo-btn" class="control-btn" disabled>
-              <span>↶</span> Undo Move
-            </button>
-        <h2>Choose Promotion Piece</h2>
-        <div id="promotion-choices" class="promotion-choices"></div>
-      </div>
+    <!-- Promotion Modal -->
+    <div id="promotion-modal" class="modal">
+        <div class="modal-content">
+            <h2>Choose Promotion Piece</h2>
+            <div id="promotion-choices" class="promotion-choices"></div>
+        </div>
     </div>
 
     <script src="chess.js"></script>
+    <script src="engine.js"></script>
     <script src="ui.js"></script>
-  </body>
+</body>
 </html>
