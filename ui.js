@@ -142,10 +142,11 @@ function attemptMove(fromRow, fromCol, toRow, toCol) {
         clearSelection();
         renderBoard();
         updateUI();
-        resetHintButton();
         
-        // Trigger analysis after move
-        setTimeout(() => analyzePosition(), 300);
+        // Trigger analysis after move only if hint is enabled
+        if (hintVisible) {
+            setTimeout(() => analyzePosition(), 300);
+        }
     }
 }
 
@@ -492,7 +493,11 @@ function handleNewGame() {
         renderBoard();
         updateUI();
         resetHintButton();
-        setTimeout(() => analyzePosition(), 500);
+        
+        // Don't auto-analyze on new game unless hint is enabled
+        if (hintVisible) {
+            setTimeout(() => analyzePosition(), 500);
+        }
     }
 }
 
@@ -501,8 +506,11 @@ function handleUndo() {
         clearSelection();
         renderBoard();
         updateUI();
-        resetHintButton();
-        setTimeout(() => analyzePosition(), 300);
+        
+        // Re-analyze only if hint is enabled
+        if (hintVisible) {
+            setTimeout(() => analyzePosition(), 300);
+        }
     }
 }
 
