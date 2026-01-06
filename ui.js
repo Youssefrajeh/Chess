@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     attachEventListeners();
     
     // Don't auto-start analysis - let user enable it manually
-    chessEngine.updateStatus('AI Analysis disabled. Click "Show Hint" to enable.');
+    chessEngine.updateStatus('AI Analysis OFF');
 });
 
 function renderBoard() {
@@ -445,32 +445,29 @@ function attachEventListeners() {
     if (newGameBtnSide) newGameBtnSide.addEventListener('click', handleNewGame);
     if (undoBtnSide) undoBtnSide.addEventListener('click', handleUndo);
 
-    // Hint button - toggle functionality
-    const hintBtn = document.getElementById('hint-btn');
+    // AI Analysis toggle switch
+    const hintToggle = document.getElementById('hint-toggle');
+    const analysisStatus = document.getElementById('analysis-status');
     
-    hintBtn.addEventListener('click', () => {
-        if (hintVisible) {
+    hintToggle.addEventListener('change', () => {
+        if (hintToggle.checked) {
+            // Turn ON AI Analysis
+            hintVisible = true;
+            analysisStatus.textContent = 'AI Analysis ON';
+            if (chessEngine && !chessEngine.isAnalyzing) {
+                analyzePosition();
+            }
+        } else {
             // Turn OFF AI Analysis
+            hintVisible = false;
+            analysisStatus.textContent = 'AI Analysis OFF';
+            
+            // Clear display and highlights
             const display = document.getElementById('best-move-display');
             display.innerHTML = '';
-            hintBtn.innerHTML = '<span>💡</span> AI Analysis: OFF';
-            hintVisible = false;
-            
-            // Clear best move highlights
             document.querySelectorAll('.best-move-highlight').forEach(sq => {
                 sq.classList.remove('best-move-highlight');
             });
-            
-            // Update status
-            chessEngine.updateStatus('AI Analysis disabled');
-        } else {
-            // Turn ON AI Analysis
-            if (chessEngine && !chessEngine.isAnalyzing) {
-                hintBtn.innerHTML = '<span>🧠</span> AI Analysis: ON';
-                hintVisible = true;
-                chessEngine.updateStatus('AI Analysis enabled');
-                analyzePosition();
-            }
         }
     });
 
@@ -522,11 +519,12 @@ function getSquareElement(row, col) {
 }
 
 function resetHintButton() {
-    const hintBtn = document.getElementById('hint-btn');
+    const hintToggle = document.getElementById('hint-toggle');
     const display = document.getElementById('best-move-display');
+    const analysisStatus = document.getElementById('analysis-status');
     
-    if (hintBtn) {
-        hintBtn.innerHTML = '<span>💡</span> AI Analysis: OFF';
+    if (hintToggle) {
+        hintToggle.checked = false;
         hintVisible = false;
     }
     
@@ -534,15 +532,14 @@ function resetHintButton() {
         display.innerHTML = '';
     }
     
+    if (analysisStatus) {
+        analysisStatus.textContent = 'AI Analysis OFF';
+    }
+    
     // Clear best move highlights
     document.querySelectorAll('.best-move-highlight').forEach(sq => {
         sq.classList.remove('best-move-highlight');
     });
-    
-    // Update status
-    if (chessEngine) {
-        chessEngine.updateStatus('AI Analysis disabled. Click to enable.');
-    }
 }
 
 // Prevent default drag behavior on pieces

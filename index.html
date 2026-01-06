@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="analysis.css" />
     <link rel="stylesheet" href="controls.css" />
+    <link rel="stylesheet" href="toggle.css" />
   </head>
   <body>
     <div class="container">
@@ -98,12 +99,16 @@
                 </div>
                 <span id="eval-score" class="eval-score">0.0</span>
               </div>
-              <button id="hint-btn" class="control-btn hint-btn">
-                <span>💡</span> AI Analysis: OFF
-              </button>
+              <div class="toggle-container">
+                <span class="toggle-label">AI Analysis</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="hint-toggle">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
               <div id="best-move-display" class="best-move-display"></div>
               <div id="analysis-status" class="analysis-status">
-                Engine ready
+                AI Analysis OFF
               </div>
             </div>
           </div>
