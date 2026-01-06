@@ -5,6 +5,7 @@
 let game;
 let selectedSquare = null;
 let validMoves = [];
+let hintVisible = false;
 
 // Initialize game on page load
 document.addEventListener('DOMContentLoaded', () => {
@@ -141,6 +142,7 @@ function attemptMove(fromRow, fromCol, toRow, toCol) {
         clearSelection();
         renderBoard();
         updateUI();
+        resetHintButton();
         
         // Trigger analysis after move
         setTimeout(() => analyzePosition(), 300);
@@ -444,10 +446,28 @@ function attachEventListeners() {
     if (newGameBtnSide) newGameBtnSide.addEventListener('click', handleNewGame);
     if (undoBtnSide) undoBtnSide.addEventListener('click', handleUndo);
 
-    // Hint button
-    document.getElementById('hint-btn').addEventListener('click', () => {
-        if (chessEngine && !chessEngine.isAnalyzing) {
-            analyzePosition();
+    // Hint button - toggle functionality
+    const hintBtn = document.getElementById('hint-btn');
+    
+    hintBtn.addEventListener('click', () => {
+        if (hintVisible) {
+            // Hide hint
+            const display = document.getElementById('best-move-display');
+            display.innerHTML = '';
+            hintBtn.innerHTML = '<span>💡</span> Show Hint';
+            hintVisible = false;
+            
+            // Clear best move highlights
+            document.querySelectorAll('.best-move-highlight').forEach(sq => {
+                sq.classList.remove('best-move-highlight');
+            });
+        } else {
+            // Show hint
+            if (chessEngine && !chessEngine.isAnalyzing) {
+                hintBtn.innerHTML = '<span>✖</span> Hide Hint';
+                hintVisible = true;
+                analyzePosition();
+            }
         }
     });
 
@@ -471,6 +491,7 @@ function handleNewGame() {
         clearSelection();
         renderBoard();
         updateUI();
+        resetHintButton();
         setTimeout(() => analyzePosition(), 500);
     }
 }
@@ -480,6 +501,7 @@ function handleUndo() {
         clearSelection();
         renderBoard();
         updateUI();
+        resetHintButton();
         setTimeout(() => analyzePosition(), 300);
     }
 }
@@ -487,6 +509,25 @@ function handleUndo() {
 // Helper Functions
 function getSquareElement(row, col) {
     return document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+}
+
+function resetHintButton() {
+    const hintBtn = document.getElementById('hint-btn');
+    const display = document.getElementById('best-move-display');
+    
+    if (hintBtn) {
+        hintBtn.innerHTML = '<span>💡</span> Show Hint';
+        hintVisible = false;
+    }
+    
+    if (display) {
+        display.innerHTML = '';
+    }
+    
+    // Clear best move highlights
+    document.querySelectorAll('.best-move-highlight').forEach(sq => {
+        sq.classList.remove('best-move-highlight');
+    });
 }
 
 // Prevent default drag behavior on pieces
