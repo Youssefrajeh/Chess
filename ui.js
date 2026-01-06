@@ -43,12 +43,18 @@ function renderBoard() {
             // Click event
             square.addEventListener('click', handleSquareClick);
 
-            // Drag events
+            // Drag events (desktop)
             square.addEventListener('dragstart', handleDragStart);
             square.addEventListener('dragover', handleDragOver);
             square.addEventListener('drop', handleDrop);
             square.addEventListener('dragenter', handleDragEnter);
             square.addEventListener('dragleave', handleDragLeave);
+
+            // Touch events (mobile)
+            square.addEventListener('touchstart', handleTouchStart, { passive: false });
+            square.addEventListener('touchmove', handleTouchMove, { passive: false });
+            square.addEventListener('touchend', handleTouchEnd, { passive: false });
+            square.addEventListener('touchcancel', handleTouchCancel);
 
             boardElement.appendChild(square);
         }
@@ -204,6 +210,98 @@ function handleDrop(e) {
 
     attemptMove(draggedPiece.row, draggedPiece.col, toRow, toCol);
     draggedPiece = null;
+}
+
+// Touch support for mobile devices
+let touchStartSquare = null;
+let touchStartTime = 0;
+
+function handleTouchStart(e) {
+    if (game.gameStatus === 'checkmate' || game.gameStatus === 'stalemate') return;
+
+    const square = e.currentTarget;
+    const row = parseInt(square.dataset.row);
+    const col = parseInt(square.dataset.col);
+    const piece = game.getPiece(row, col);
+
+    // Only handle touches on pieces of the current player
+    if (piece && piece.color === game.currentTurn) {
+        e.preventDefault(); // Prevent default to avoid conflicts
+        touchStartSquare = { row, col, element: square };
+        touchStartTime = Date.now();
+        
+        // Visual feedback
+        square.style.opacity = '0.7';
+        square.style.transform = 'scale(1.05)';
+        
+        // Show valid moves
+        selectSquare(row, col);
+    }
+}
+
+function handleTouchMove(e) {
+    if (!touchStartSquare) return;
+    e.preventDefault(); // Prevent scrolling while dragging
+
+    const touch = e.touches[0];
+    const elementAtPoint = document.elementFromPoint(touch.clientX, touch.clientY);
+    
+    // Remove dragging-over class from all squares
+    document.querySelectorAll('.dragging-over').forEach(sq => {
+        sq.classList.remove('dragging-over');
+    });
+
+    // Add dragging-over class to current square if it's valid
+    if (elementAtPoint && elementAtPoint.classList.contains('square')) {
+        if (elementAtPoint.classList.contains('valid-move')) {
+            elementAtPoint.classList.add('dragging-over');
+        }
+    }
+}
+
+function handleTouchEnd(e) {
+    if (!touchStartSquare) return;
+    
+    e.preventDefault();
+    
+    const touchDuration = Date.now() - touchStartTime;
+    const touch = e.changedTouches[0];
+    const elementAtPoint = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    // Reset visual feedback
+    touchStartSquare.element.style.opacity = '1';
+    touchStartSquare.element.style.transform = 'scale(1)';
+    
+    // Remove dragging-over class
+    document.querySelectorAll('.dragging-over').forEach(sq => {
+        sq.classList.remove('dragging-over');
+    });
+
+    // If touch was very short and on the same piece, treat as selection (already done)
+    // If moved to another square, attempt the move
+    if (elementAtPoint && elementAtPoint.classList.contains('square')) {
+        const toRow = parseInt(elementAtPoint.dataset.row);
+        const toCol = parseInt(elementAtPoint.dataset.col);
+        
+        // If different square, try to move
+        if (toRow !== touchStartSquare.row || toCol !== touchStartSquare.col) {
+            attemptMove(touchStartSquare.row, touchStartSquare.col, toRow, toCol);
+        }
+    }
+
+    touchStartSquare = null;
+}
+
+function handleTouchCancel(e) {
+    if (touchStartSquare) {
+        touchStartSquare.element.style.opacity = '1';
+        touchStartSquare.element.style.transform = 'scale(1)';
+        touchStartSquare = null;
+    }
+    
+    document.querySelectorAll('.dragging-over').forEach(sq => {
+        sq.classList.remove('dragging-over');
+    });
 }
 
 // Promotion Dialog
